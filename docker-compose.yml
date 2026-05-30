@@ -1,0 +1,16 @@
+services:
+  server:
+    image: food-site-server:v1
+    container_name: food-server
+    ports:
+      - "1100:1100"
+    env_file:
+      - ./server/.env
+
+  client:
+    image: food-site-client:v1
+    container_name: food-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
