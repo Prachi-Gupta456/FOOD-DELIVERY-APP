@@ -37,7 +37,7 @@ export default function SignupForm() {
         const result = await GoogleAuth()
 
         if (!result.success) {
-            return toast.warn(result.msg)
+            return toast.warn("Network error..")
         }
 
         setPending(true)
@@ -83,7 +83,7 @@ export default function SignupForm() {
             toast.success("Signup successful 🎉")
         }
         else {
-            toast.error(result.msg)
+            toast.error("Network error..)
         }
         setPending(false)
 
