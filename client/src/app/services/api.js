@@ -1,5 +1,5 @@
 import api from "../lib/axios"
-
+import axios from "axios"
 
 const getErrorMessage = (error) => {
   return (
@@ -138,7 +138,7 @@ export const getMyShop = async () => {
 export const getLocation = async (lat, lon) => {
   try {
 
-    const response = await api.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPI_KEY}`)
+    const response = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPI_KEY}`)
     return response.data.results[0]
 
   }
@@ -250,7 +250,7 @@ export const fetchItemsByShop = async (shopId) => {
 
 export const fetchLatLng = async (address) => {
   try {
-    const response = await api.get(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPI_KEY}`)
+    const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPI_KEY}`)
     return response.data.results[0]
   } catch (error) {
     return {
