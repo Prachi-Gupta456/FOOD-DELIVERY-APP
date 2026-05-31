@@ -19,7 +19,7 @@ const useGetItemByCity = (skip) => {
         }
 
         fetchItems()
-    }, [currentCity])
+    }, [skip,currentCity])
 }
 
 export default useGetItemByCity;
