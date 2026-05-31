@@ -274,7 +274,7 @@ export const GoogleAuthService = async (fullName, email, contact, role) => {
 
 
     // store refresh token in redis
-    await redisClient.setEx(`refresh:${result._id}`, 7 * 24 * 60 * 60, refreshToken)
+    await redisClient.setEx(`refresh:${user._id}`, 7 * 24 * 60 * 60, refreshToken)
     
 
     const data = {
