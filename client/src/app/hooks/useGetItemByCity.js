@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchItemsByCity } from "../services/api"
 import { setItemsInMyCity } from "../redux/slices/userSlice"
 
-const useGetItemByCity = () => {
+const useGetItemByCity = (skip) => {
     
     const { currentCity } = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
+
+          if(skip)return;
 
         const fetchItems = async () => {
             const result = await fetchItemsByCity(currentCity)
@@ -18,7 +20,7 @@ const useGetItemByCity = () => {
         }
 
         fetchItems()
-    }, [currentCity])
+    }, [skip,currentCity])
 }
 
 export default useGetItemByCity;

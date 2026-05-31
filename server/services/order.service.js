@@ -278,6 +278,7 @@ export const updateOrderService = async (shopId, orderId, status, io) => {
         throw new ApiError(400, "Provide all required data")
     }
 
+
     const order = await Order.findById(orderId)
 
     const shopOrder = await order.shopOrders.find(o => o.shop.toString() === shopId.toString())
@@ -286,8 +287,12 @@ export const updateOrderService = async (shopId, orderId, status, io) => {
         throw new ApiError(400, "shopOrder not found.")
     }
 
-    if (shopOrder.status == "delivered") {
+    if (shopOrder.status === "delivered") {
         throw new ApiError(400, "Order is already delivered.")
+    }
+
+    if(shopOrder.status === "out of delivery" && (status === "pending" || status === "preparing")){
+        throw new ApiError(400,"Order status can't be changed now.")
     }
 
     shopOrder.status = status
@@ -630,6 +635,8 @@ export const verifyDeliveryOtpService = async (orderId, shopOrderId, otp) => {
     if (!cachedOtp || userOtp !== cachedOtp) {
         throw new ApiError(400, "Invalid OTP")
     }
+    console.log("cachedOtp: ",cachedOtp)
+    console.log("userOtp: ",userOtp)
 
     shopOrder.status = "delivered"
     shopOrder.deliveredAt = Date.now()

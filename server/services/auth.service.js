@@ -109,6 +109,7 @@ export const signupService = async (fullName, email, password, contact, role) =>
     const accessToken = await generateAccessToken(result._id)
     const refreshToken = await generateRefreshToken(result._id)
 
+
     // store refresh token in redis
     await redisClient.setEx(`refresh:${result._id}`, 7 * 24 * 60 * 60, refreshToken)
 
@@ -144,6 +145,7 @@ export const signInService = async (email, password) => {
     if (!isMatch) {
         throw new ApiError(500, "Wrong Password.")
     }
+
 
     // generate access token and refresh tokens
     const accessToken = await generateAccessToken(user._id)
@@ -268,14 +270,8 @@ export const GoogleAuthService = async (fullName, email, contact, role) => {
         })
     }
 
-   // generate access token and refresh tokens
-    const accessToken = await generateAccessToken(user._id)
-    const refreshToken = await generateRefreshToken(user._id)
-
-
-    // store refresh token in redis
-    await redisClient.setEx(`refresh:${user._id}`, 7 * 24 * 60 * 60, refreshToken)
-    
+    // set jwt token
+    const token = generateToken(user._id)
 
     const data = {
         user: {

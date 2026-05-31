@@ -15,19 +15,18 @@ export default function AppInitializer() {
 
     const pathname = usePathname();
 
-    if (pathname.startsWith("/auth/signin") ||
-        pathname.startsWith("/auth/signup")) {
-        return null
-    }
+    const isAuthPage = pathname.startsWith("/auth/signin") || pathname.startsWith("/auth/signup");
 
-    useInitSocket()
-    useGetCurrentUser()
-    useUpdateLocation()
-    useGetCity()
-    useGetMyShop()
-    useGetItemByCity()
-    useGetShopByCity()
-    useGetMyOrders()
+
+    useInitSocket(isAuthPage);
+    useGetCurrentUser(isAuthPage);
+    useUpdateLocation(isAuthPage);
+    useGetCity(isAuthPage);
+    useGetMyShop(isAuthPage);
+    useGetItemByCity(isAuthPage);
+    useGetShopByCity(isAuthPage);
+    useGetMyOrders(isAuthPage);
+
 
     return null
 }

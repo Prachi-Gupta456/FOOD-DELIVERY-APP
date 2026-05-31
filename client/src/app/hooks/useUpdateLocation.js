@@ -3,12 +3,14 @@ import {  useDispatch, useSelector } from "react-redux";
 import { handleUpdateLocation } from "../services/api";
 import { setUserData } from "../redux/slices/userSlice";
 
-export default function useUpdateLocation() {
+export default function useUpdateLocation(skip) {
 
      const { userData } = useSelector(state => state.user)
      const dispatch=useDispatch()
 
     useEffect(() => {
+
+        if(skip)return;
 
       if(!userData || userData.role !== "deliveryBoy")return;
 
@@ -22,5 +24,5 @@ export default function useUpdateLocation() {
 
 
          
-        },[userData])
+        },[skip,userData])
     }

@@ -4,12 +4,15 @@ import { getLocation } from "../services/api.js";
 import { setCurrentAddress, setCurrentCity, setCurrentState } from "../redux/slices/userSlice";
 import { setAddress, setLocation } from "../redux/slices/mapSlice.js";
 
-export default function useGetCity() {
+export default function useGetCity(skip) {
 
     const dispatch = useDispatch()
     const { userData } = useSelector(state => state.user)
 
     useEffect(() => {
+
+       if(skip)return;
+
         navigator.geolocation.getCurrentPosition(async (pos) => {
             const { latitude, longitude } = pos.coords
 
@@ -26,5 +29,5 @@ export default function useGetCity() {
         }, (error) => {
             console.log(error.message)
         })
-    }, [userData])
+    }, [skip,userData])
 }

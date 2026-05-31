@@ -8,7 +8,7 @@ import {
 
 export const refreshToken = async (req, resp, next) => {
     try {
-       
+
         const { refreshToken } = req.cookies
 
         const { access_token, refresh_token } = await refreshTokenService(refreshToken)
@@ -26,7 +26,7 @@ export const refreshToken = async (req, resp, next) => {
             path: "/",
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge:15* 60 * 1000
+            maxAge: 15 * 60 * 1000
         })
 
 
@@ -43,7 +43,7 @@ export const signUp = async (req, resp, next) => {
     try {
         const { fullName, email, password, contact, role } = req.body
 
-        const { user, refresh_token,access_token } = await signupService(fullName, email, password, contact, role)
+        const { user, refresh_token, access_token } = await signupService(fullName, email, password, contact, role)
 
         resp.cookie("accessToken", access_token, {
             httpOnly: true,
@@ -76,14 +76,14 @@ export const signIn = async (req, resp, next) => {
     try {
         const { email, password } = req.body
 
-        const { refresh_token,access_token, user } = await signInService(email, password)
+        const { refresh_token, access_token, user } = await signInService(email, password)
 
-         resp.cookie("accessToken", access_token, {
+        resp.cookie("accessToken", access_token, {
             httpOnly: true,
             path: "/",
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 15*60 * 1000
+            maxAge: 15 * 60 * 1000
         })
 
         resp.cookie("refreshToken", refresh_token, {
