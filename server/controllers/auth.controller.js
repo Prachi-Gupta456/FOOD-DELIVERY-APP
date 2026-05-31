@@ -185,9 +185,17 @@ export const googleAuth = async (req, resp, next) => {
     try {
         const { fullName, email, contact, role } = req.body
 
-        const { token, user } = await GoogleAuthService(fullName, email, contact, role)
+        const { user, refresh_token, access_token } = await GoogleAuthService(fullName, email, contact, role)
 
-        resp.cookie("token", token, {
+        resp.cookie("accessToken", access_token, {
+            httpOnly: true,
+            path: "/",
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            maxAge: 15 * 60 * 1000
+        })
+
+        resp.cookie("refreshToken", refresh_token, {
             httpOnly: true,
             path: "/",
             secure: process.env.NODE_ENV === 'production',
