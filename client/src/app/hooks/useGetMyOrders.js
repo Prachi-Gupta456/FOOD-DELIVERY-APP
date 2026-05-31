@@ -22,7 +22,7 @@ const useGetMyOrders = (skip) => {
 
         fetchOrders();
         
-    }, [userData])
+    }, [skip,userData])
 }
 
 export default useGetMyOrders;
