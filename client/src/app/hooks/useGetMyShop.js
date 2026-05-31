@@ -25,7 +25,7 @@ const useGetMyShop = (skip) => {
 
         fetchShop();
 
-    }, [userData])
+    }, [skip,userData])
 }
 
 export default useGetMyShop;
