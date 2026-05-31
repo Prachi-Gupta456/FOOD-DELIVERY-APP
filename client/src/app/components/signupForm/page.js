@@ -83,7 +83,7 @@ export default function SignupForm() {
             toast.success("Signup successful 🎉")
         }
         else {
-            toast.error("Network error..)
+            toast.error("Network error..")
         }
         setPending(false)
 
