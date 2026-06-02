@@ -43,9 +43,6 @@ export const refreshTokenService = async (refreshToken) => {
     const access_token = await generateAccessToken(user._id)
     const refresh_token = await generateRefreshToken(user._id)
 
-    console.log("New access token",access_token)
-    console.log("New refresh token",refresh_token)
-
     // store new refresh token in cache
     await redisClient.setEx(`refresh:${user._id}`, 7 * 24 * 60 * 60, refresh_token)
 
