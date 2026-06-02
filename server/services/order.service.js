@@ -291,8 +291,8 @@ export const updateOrderService = async (shopId, orderId, status, io) => {
         throw new ApiError(400, "Order is already delivered.")
     }
 
-    if(shopOrder.status === "out of delivery" && (status === "pending" || status === "preparing")){
-        throw new ApiError(400,"Order status can't be changed now.")
+    if(shopOrder.status === "out of delivery"){
+        throw new ApiError(400, "Order status can't be changed now!")
     }
 
     shopOrder.status = status
@@ -331,7 +331,7 @@ export const updateOrderService = async (shopId, orderId, status, io) => {
 
         if (candidates.length == 0) {
             await order.save()
-            return { success: true, msg: "Order status updated but there is no delivery boys available " }
+            return { success: true,status:shopOrder.status, msg: "Order status updated but there is no delivery boys available " }
         }
 
         const deliveryAssignment = await DeliveryAssignment.create({

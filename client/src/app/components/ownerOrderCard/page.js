@@ -4,6 +4,7 @@ import { updateOrder } from "@/app/services/api";
 import {useState } from "react";
 import { MdPhone } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function OwnerOrderCard({ data }) {
 
@@ -13,9 +14,8 @@ export default function OwnerOrderCard({ data }) {
     const handleUpdateStatus = async (orderId, shopId, status) => {
 
         const result = await updateOrder(shopId, orderId, { status })
-
+        
         if (result.success) {
-
             dispatch(updateOrderStatus({ shopId, orderId, status: result.shopOrder.status }))
             setAvailableBoys(result.availableBoys)
         }

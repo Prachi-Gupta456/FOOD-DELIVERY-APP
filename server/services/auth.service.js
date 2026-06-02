@@ -270,8 +270,14 @@ export const GoogleAuthService = async (fullName, email, contact, role) => {
         })
     }
 
-    // set jwt token
-    const token = generateToken(user._id)
+    // generate access token and refresh tokens
+    const accessToken = await generateAccessToken(user._id)
+    const refreshToken = await generateRefreshToken(user._id)
+
+
+    // store refresh token in redis
+    await redisClient.setEx(`refresh:${user._id}`, 7 * 24 * 60 * 60, refreshToken)
+    
 
     const data = {
         user: {
@@ -280,9 +286,11 @@ export const GoogleAuthService = async (fullName, email, contact, role) => {
             role: user.role,
             contact: user.contact
         },  refresh_token: refreshToken, access_token: accessToken
+       
     }
 
     return data;
 }
+
 
 
