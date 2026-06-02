@@ -29,5 +29,10 @@ export default function useGetCity(skip) {
         }, (error) => {
             console.log(error.message)
         })
+<<<<<<< HEAD
     }, [skip,userData])
 }
+=======
+    }, [userData])
+}
+>>>>>>> f0519d9e6d22565401697a877ad95b0f53686e32

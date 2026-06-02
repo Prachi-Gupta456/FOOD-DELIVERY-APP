@@ -4,11 +4,13 @@ import { useEffect } from "react";
 import { socketInstance } from "../socket";
 import { useSelector } from "react-redux";
 
-export default function useInitSocket() {
+export default function useInitSocket(skip) {
 
     const { userData } = useSelector(state => state.user)
 
     useEffect(() => {
+
+           if(skip)return;
 
         socketInstance.connect()
 
@@ -23,5 +25,5 @@ export default function useInitSocket() {
 
         return () => socketInstance.disconnect()
 
-    }, [userData?._id])
+    }, [skip,userData?._id])
 }

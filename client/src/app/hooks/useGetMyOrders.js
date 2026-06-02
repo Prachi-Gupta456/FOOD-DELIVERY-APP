@@ -11,6 +11,8 @@ const useGetMyOrders = (skip) => {
     useEffect(() => {
           if(skip)return;
 
+           if(skip)return;
+
         const fetchOrders = async () => {
             const result = await getMyOrders()
 
