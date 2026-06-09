@@ -9,7 +9,7 @@ const useGetCurrentUser = (skip) => {
 
     useEffect(() => {
 
-          if(skip)return;
+        if (skip) return;
 
         const fetchUser = async () => {
             const result = await getCurrentUser()

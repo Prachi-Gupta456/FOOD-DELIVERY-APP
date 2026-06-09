@@ -7,11 +7,11 @@ const verifyJwtToken = async (req, resp, next) => {
     try {
         const { accessToken } = req.cookies
 
-        if (!accessToken) {
+         if (!accessToken) {
             return resp.status(401).json({
                 success: false,
-                expired:false,
-                msg: "Access token missing"
+                expired: true,
+                msg: "Access token expired"
             })
         }
 

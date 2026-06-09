@@ -57,6 +57,7 @@ export const logoutService = async (refreshToken) => {
         try {
             // decode refresh token
             const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET)
+            
             // remove from redis
             await redisClient.del(`refresh:${decoded.userId}`)
 

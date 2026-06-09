@@ -17,14 +17,6 @@ const uploadOnCloudinary = async (file) => {
     })
 
     return result.secure_url
-    
-    // {
-    //     public_id: result.public_id,
-    //     secure_url: result.secure_url,
-    //     resource_type: result.resource_type,
-    //     format: result.format,
-    //     original_name: file.originalname
-    // }
 
 }
 
