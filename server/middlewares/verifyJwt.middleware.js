@@ -1,18 +1,19 @@
-import { redisClient } from "../config/redis.js"
 import ApiError from "../utils/ApiError.js"
 import jwt from "jsonwebtoken"
+
+const unauthorized = (resp) => resp.status(401).json({
+    success: false,
+    expired: true,
+    msg: "Access token expired"
+})
 
 const verifyJwtToken = async (req, resp, next) => {
 
     try {
         const { accessToken } = req.cookies
 
-         if (!accessToken) {
-            return resp.status(401).json({
-                success: false,
-                expired: true,
-                msg: "Access token expired"
-            })
+        if (!accessToken) {
+            return unauthorized(resp)
         }
 
         const decodedToken = jwt.verify(accessToken, process.env.ACCESS_SECRET)
@@ -26,12 +27,8 @@ const verifyJwtToken = async (req, resp, next) => {
 
     } catch (error) {
 
-        if (error.name === "TokenExpiredError") {
-            return resp.status(401).json({
-                success: false,
-                expired: true,
-                msg: "Access token expired"
-            })
+        if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
+            return unauthorized(resp)
         }
         next(error)
     }

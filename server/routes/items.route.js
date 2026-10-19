@@ -15,7 +15,7 @@ itemRouter.get("/search-items", verifyJwtToken, searchItems)
 itemRouter.post("/update-item-rating", verifyJwtToken, updateItemRating)
 
 itemRouter.post("/edit-item/:itemId", verifyJwtToken, upload.single("food-image"), editItem)
-itemRouter.delete("/delete-food/:itemId", verifyJwtToken, deleteItem)
+itemRouter.delete("/delete-item/:itemId", verifyJwtToken, deleteItem)
 itemRouter.get("/get-item-by-city/:city", verifyJwtToken, getItemByCity)
 itemRouter.get("/get-item-by-shop/:shopId", verifyJwtToken, getItemByShop)
 

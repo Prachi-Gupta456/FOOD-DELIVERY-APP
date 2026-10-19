@@ -22,17 +22,15 @@ export const updateUserLocationService = async (userId, lat, lon) => {
     }
 
     if (lon == null || lat == null) {
-        {
-            throw new ApiError(400, "longitude and latitude are required")
-        }
-
+        throw new ApiError(400, "longitude and latitude are required")
     }
+
     const user = await User.findByIdAndUpdate(userId, {
         location: {
             type: "Point",
             coordinates: [lon, lat]
         }
-    }, { returnDocument: "after" })
+    }, { returnDocument: "after" }).select("-password -isOtpVerified")
 
     if (!user) {
         throw new ApiError(400, "User not found")
