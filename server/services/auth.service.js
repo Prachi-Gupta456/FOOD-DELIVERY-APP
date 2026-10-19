@@ -256,10 +256,20 @@ export const resetPasswordService = async (email, newPassword, confirmPassword) 
 
 export const GoogleAuthService = async (fullName, email, contact, role) => {
 
+    if (!email) {
+        throw new ApiError(400, "Email is required.")
+    }
+
     // check existing users
     let user = await User.findOne({ email })
 
     if (!user) {
+
+        // new user can only be created from the signup page (contact and role are required there)
+        if (!fullName || !contact || !role) {
+            throw new ApiError(404, "Account not found. Please sign up first.")
+        }
+
         user = await User.create({
             fullName,
             email,
@@ -275,16 +285,17 @@ export const GoogleAuthService = async (fullName, email, contact, role) => {
 
     // store refresh token in redis
     await redisClient.setEx(`refresh:${user._id}`, 7 * 24 * 60 * 60, refreshToken)
-    
+
 
     const data = {
         user: {
+            _id: user._id,
             fullName: user.fullName,
             email: user.email,
             role: user.role,
             contact: user.contact
-        },  refresh_token: refreshToken, access_token: accessToken
-       
+        }, refresh_token: refreshToken, access_token: accessToken
+
     }
 
     return data;
