@@ -3,10 +3,7 @@
 A full-stack food delivery platform where customers can discover restaurants, order food online, and track their orders. Shop owners can manage their restaurants and menu items, while delivery partners can handle assigned deliveries.
 
 ## 🚀 Live Demo
-
-**Frontend:**    https://food-delivery-app-ruddy-seven.vercel.app
-**Backend API:** https://food-delivery-app-4e9r.onrender.com
-
+** https://food-delivery-app-jet-xi.vercel.app **
 ---
 
 ## ✨ Features
