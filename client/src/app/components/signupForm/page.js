@@ -66,7 +66,7 @@ export default function SignupForm() {
 
     }
 
-    const handleSubmit = async (e) => {
+        const handleSubmit = async (e) => {
 
         e.preventDefault();
 
@@ -81,16 +81,17 @@ export default function SignupForm() {
             dispatch(setUserData(result.user))
             // -----------
             toast.success("Signup successful 🎉")
+
+            setFullName("")
+            setContact("")
+            setEmail("")
+            setPassword("")
         }
         else {
-            toast.error("Network error..")
+            // show the real error and keep the form filled
+            toast.error(result.msg)
         }
         setPending(false)
-
-        setFullName("")
-        setContact("")
-        setEmail("")
-        setPassword("")
     }
 
     return (

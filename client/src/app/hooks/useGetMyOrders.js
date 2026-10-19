@@ -1,17 +1,16 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getMyOrders} from "../services/api"
+import { getMyOrders } from "../services/api"
 import { setMyOrders } from "../redux/slices/userSlice"
 
 const useGetMyOrders = (skip) => {
 
     const dispatch = useDispatch()
-      const { userData } = useSelector(state => state.user)
+    const userId = useSelector(state => state.user.userData?._id)
 
     useEffect(() => {
-          if(skip)return;
 
-           if(skip)return;
+        if (skip || !userId) return;
 
         const fetchOrders = async () => {
             const result = await getMyOrders()
@@ -22,8 +21,8 @@ const useGetMyOrders = (skip) => {
         }
 
         fetchOrders();
-        
-    }, [skip,userData])
+
+    }, [skip, userId])
 }
 
 export default useGetMyOrders;
