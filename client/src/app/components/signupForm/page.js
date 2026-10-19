@@ -89,7 +89,7 @@ export default function SignupForm() {
         }
         else {
             // show the real error and keep the form filled
-            toast.error("Network Error")
+            toast.error(result.msg)
         }
         setPending(false)
     }

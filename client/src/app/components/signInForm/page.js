@@ -24,7 +24,7 @@ export default function signInForm() {
         const result = await GoogleAuth()
 
         if (!result.success) {
-            return toast.warn(result.msg)
+            return toast.warn("Network Error")
         }
 
         setPending(true)
